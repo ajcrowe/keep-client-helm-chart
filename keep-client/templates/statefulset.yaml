@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "keep-client.fullname" . }}
+  labels:
+    {{ include "keep-client.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "keep-client.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  serviceName: ""
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{ toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        app.kubernetes.io/name: {{ include "keep-client.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- if .Values.podLabels }}
+        {{ toYaml .Values.podLabels | nindent 8 }}
+        {{- end }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ template "keep-client.serviceAccountName" . }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image:  "{{ include "keep-client.image" . }}"
+          imagePullPolicy: {{ .Values.pullPolicy }}
+          command: ["/usr/local/bin/keep-client"]
+          args:
+            - "--config={{ .Values.config.paths.config }}/config.toml"
+            - "start"
+          envFrom:
+            - secretRef:
+                name: {{ include "keep-client.fullname" . }}-keypass
+          ports:
+            - name: {{ .Values.service.name }}
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+            {{- if .Values.probesEnabled }}
+            livenessProbe:
+              tcpSocket:
+                port: {{ .Values.service.name }}
+              initialDelaySeconds: 60
+              periodSeconds: 30
+              timeoutSeconds: 5
+            readinessProbe:
+              tcpSocket:
+                port: {{ .Values.service.name }}
+              initialDelaySeconds: 45
+              periodSeconds: 30
+              timeoutSeconds: 5
+            {{- end }}
+          volumeMounts:
+            - name: {{ include "keep-client.fullname" . }}-data
+              mountPath: {{ .Values.config.paths.data }}
+            - name: config
+              mountPath: {{ .Values.config.paths.config }}
+            - name: keyfile
+              mountPath: {{ .Values.config.paths.keyStore }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "keep-client.fullname" . }}
+        - name: keyfile
+          secret:
+            {{- if .Values.keyFile.existingSecret }}
+            secretName: {{ .Values.keyFile.existingSecret }}
+            {{- else }}
+            secretName: {{ include "keep-client.fullname" . }}-keyfile
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "keep-client.fullname" . }}-data
+      spec:
+        storageClassName: {{ .Values.persistentDisk.storageClass }}
+        accessModes: [ {{ .Values.persistentDisk.accessModes }} ]
+        resources:
+          requests:
+            storage: {{ .Values.persistentDisk.size }}

@@ -1,0 +1,23 @@
+coreNode: 
+  enabled: true
+
+nameOverride: "keep-core-client"
+fullnameOverride: "keep-core-client"
+
+# Enable load config file loading
+configFile:
+  enabled: true
+
+config:
+  ethereum:
+    account: "0x0000000000000000000000000000000000000000"
+    url: "wss://ropsten.infura.io/ws/v3/mykey"
+    urlRpc: "https://ropsten.infura.io/v3/mykey"
+
+resources:
+  limits:
+    cpu: 4000m
+    memory: 2Gi
+  requests:
+    cpu: 1000m
+    memory: 1Gi

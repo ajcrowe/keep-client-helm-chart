@@ -1,0 +1,95 @@
+replicaCount: 1
+
+coreNode:
+  enabled: false  
+  image:
+    repository: keepnetwork/keep-client
+    tag: "v1.2.4-rc"
+
+ecdsaNode:
+  enabled: true
+  image:
+    repository: keepnetwork/keep-ecdsa-client
+    pullPolicy: IfNotPresent
+    tag: "v1.1.2"
+
+pullPolicy: IfNotPresent
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podLabels: {}
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  name: p2p
+  type: ClusterIP
+  port: 3919
+
+probesEnabled: false
+
+configYaml: {}
+configFile:
+  enabled: false
+  localFile: config.toml
+
+keyFileJson: {}
+keyFile:
+  existingSecret: {}
+  localFile: wallet.json
+keyPass:
+  existingSecret: 
+  password: "keepnetworkclient"
+
+config:
+  ethereum:
+    account: "0x0000000000000000000000000000000000000000"
+    url: "wss://ropsten.infura.io/ws/v3/mykey"
+    urlRpc: "https://ropsten.infura.io/v3/mykey"
+    keyFile: wallet.json
+  port: 3919
+  contractAddrs:
+    KeepRandomBeaconOperator: "0x9233Fd6C58e37dab223EF1dFD5e33eD69FD1f93b"
+    TokenStaking: "0x88B3D0Bfb8F207292Dc4Cee7C923d0E7C3078a18"
+    KeepRandomBeaconService: "0xa5018dbeB6920A04e0CFd3D8F0F45BC851838b0D"
+  sanctionedApplications:
+  - '"0x14dC06F762E7f4a756825c1A1dA569b3180153cB"'
+  peers: 
+  - '"/dns4/bootstrap-3.test.keep.network/tcp/3919/ipfs/16Uiu2HAm8KJX32kr3eYUhDuzwTucSfAfspnjnXNf9veVhB12t6Vf"'
+  - '"/dns4/bootstrap-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"'
+  announcedAddrs: 
+  - '"/ip4/127.0.0.1/tcp/3919"'
+  paths:
+    keyStore: /mnt/keystore
+    config: /mnt/config
+    data: /mnt/persistence
+
+persistentDisk:
+  enabled: true
+  storageClass: ""
+  size: 1Gi
+  accessModes: ReadWriteOnce
+
+resources: {}
+  #limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  #requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

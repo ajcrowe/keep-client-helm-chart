@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "keep-client.fullname" . }}
+data:
+  config.toml: |-
+  {{- if .Values.configFile.enabled -}}
+    {{ .Files.Get .Values.configFile.localFile | nindent 4 }}
+  {{- else if .Values.configYaml }}
+    {{ .Values.configYaml | nindent 4 }}
+  {{- else }}
+    [ethereum]
+      URL = "{{ .Values.config.ethereum.url }}"
+      URLRPC = "{{ .Values.config.ethereum.urlRpc }}"
+    [ethereum.account]
+      Address = "{{ .Values.config.ethereum.account }}"
+      KeyFile = "{{ .Values.config.paths.keyStore }}/{{ .Values.config.ethereum.keyFile }}"
+    [ethereum.ContractAddresses]
+    {{- range $key, $value := .Values.config.contractAddrs }}
+      {{ $key }} = {{ $value | quote }}
+    {{- end }}
+    {{- if .Values.ecdsaNode -}}
+    [SanctionedApplications]
+      Addresses = [{{ .Values.config.sanctionedApplications | join "," }}]
+    {{- end }}
+    [LibP2P]
+      Peers = [{{ .Values.config.peers | join "," }}]
+      Port = {{ .Values.config.port }}
+      AnnouncedAddresses = [{{ .Values.config.announcedAddrs | join "," }}]
+    [Storage]
+      DataDir = "{{ .Values.config.paths.data }}"
+  {{- end }}

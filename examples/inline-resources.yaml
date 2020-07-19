@@ -1,0 +1,61 @@
+ecdsaNode: 
+  enabled: true
+
+nameOverride: "keep-ecdsa-client"
+fullnameOverride: "keep-ecdsa-client"
+
+# JSON formatted key file
+keyFileJson: |-
+  {
+    "version": 3,
+    "id": "36e5a801-5e05-47fb-a511-7db9e1d7203d",
+    "address": "0000000000000000000000000000000000000000",
+    "crypto": {
+        "ciphertext": "2968f03d40f259ada65f4f23a0445fae6214b86ce6319f26ddf1056795904efd",
+        "cipherparams": {
+            "iv": "4c3e49c2ea2341f06128a5c95e900b79"
+        },
+        "cipher": "aes-128-ctr",
+        "kdf": "scrypt",
+        "kdfparams": {
+            "dklen": 32,
+            "salt": "df59eccd1b8523cfc8a609242e4e48c301f0fab25c08f5a87a052b0c4e2121ec",
+            "n": 131072,
+            "r": 8,
+            "p": 1
+        },
+        "mac": "b16a77a2603c75fbe27181753466389a673ae4a545965853b5dec9ee5f1e47bd"
+    }
+  }
+
+# Toml formatted configuration file
+configYaml: |-
+  [ethereum]
+    URL = "wss://ropsten.infura.io/ws/v3/mykey"
+    URLRPC = "https://ropsten.infura.io/v3/mykey"
+  [ethereum.account]
+    Address = "0x0000000000000000000000000000000000000000"
+    KeyFile = "/mnt/keystore/wallet.json"
+  [ethereum.ContractAddresses]
+    KeepRandomBeaconOperator = "0x9233Fd6C58e37dab223EF1dFD5e33eD69FD1f93b"
+    KeepRandomBeaconService = "0xa5018dbeB6920A04e0CFd3D8F0F45BC851838b0D"
+    TokenStaking = "0x88B3D0Bfb8F207292Dc4Cee7C923d0E7C3078a18"
+  [SanctionedApplications]
+    Addresses: ["0x14dC06F762E7f4a756825c1A1dA569b3180153cB"]
+  [LibP2P]
+    Peers = [
+      "/dns4/bootstrap-3.test.keep.network/tcp/3919/ipfs/16Uiu2HAm8KJX32kr3eYUhDuzwTucSfAfspnjnXNf9veVhB12t6Vf",
+      "/dns4/bootstrap-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"
+    ]
+    Port = 3919
+    AnnouncedAddresses = ["/ip4/127.0.0.1/tcp/3919"]
+  [Storage]
+    DataDir = "/mnt/persistence"
+
+resources:
+  limits:
+    cpu: 4000m
+    memory: 2Gi
+  requests:
+    cpu: 1000m
+    memory: 1Gi
