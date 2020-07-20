@@ -3,24 +3,34 @@ KEEP Network Helm Charts
 
 These charts provide a simple way to deploy KEEP Network clients into Kubernetes and make for easier and simplier upgrade processes
 
-## Install the Chart
+## Prerequisites
+
+* Kubernetes 1.9+
+* Support for `PersistentVolume`
+
+## Using the Chart
+
+### Required Config
 
 To install the chart you need to provide a few essential configuration options, these are:
 
 * Node type `ecdsa` or `core`
+* Node config information
 * Ethereum wallet JSON
 * Ethereum wallet password
 
-There are multiple ways of passing these data to the chart including
+There are multiple ways of passing these data to the chart including:
 
-* Inline `toml` and `json`, (see [example](examples/inline-resources.yaml))
-* Existing secrets (see [example](examples/existing-secrets.yaml))
-* Reading from the filesystem (see [example](examples/loca-files.md)
+* Inline `toml` and `json`, ([example](examples/inline-resources.yaml))
+* Existing secrets ([example](examples/existing-secrets.yaml))
+* Reading from the filesystem ([example](examples/loca-files.md))
 
 It's recommended you place these parameters in a local values file and install the chart with the following command
 
+### Install
+
 ```
-helm install my-keep-node keep-client -f myvalues.yaml 
+helm install my-keep-node keep-client -f myvalues.yaml --set keyPass.password="mypassword"
 ```
 
 ## Configuration Options
