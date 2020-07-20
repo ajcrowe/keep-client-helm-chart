@@ -29,4 +29,10 @@ data:
       AnnouncedAddresses = [{{ .Values.config.announcedAddrs | join "," }}]
     [Storage]
       DataDir = "{{ .Values.config.paths.data }}"
+    {{- if .Values.metrics.enabled }}
+    [Metrics]
+      Port = {{ .Values.metrics.port }}
+      NetworkMetricsTick = {{ .Values.metrics.networkMetricsTick }}
+      EthereumMetricsTick = {{ .Values.metrics.ethereumMetricsTick }}
+    {{- end }}
   {{- end }}

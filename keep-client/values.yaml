@@ -80,6 +80,19 @@ persistentDisk:
   size: 1Gi
   accessModes: ReadWriteOnce
 
+metrics:
+  enabled: false
+  port: 8080
+  networkMetricsTick: 60
+  ethereumMetricsTick: 600
+
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  annotations: {}
+  interval: ""
+  scrapeTimeout: ""
+
 resources: {}
   #limits:
   #  cpu: 100m

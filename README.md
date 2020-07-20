@@ -89,3 +89,13 @@ Below are configuration options for the chart
 | serviceAccount.create         | If `true` a service account with created and used                                          | `true`                                                                                                                                                                                                                       |
 | serviceAccount.name           | Existing service account to use                                                            | `""`                                                                                                                                                                                                                         |
 | tolerations                   | Controller pod toleration for taints                                                       | `[]`                                                                                                                                                                                                                         |
+
+| metrics.enabled | Enable metrics  | `false` |
+| metrics.port | Set metrics port for node | `8080` |
+| metrics.networkMetricsTick | Set tick for network metrics collection | `60` |
+| metrics.ethereumMetricsTick | Set tick for ethereum metrics collection | `600` |
+| serviceMonitor.enabled | Enable service monitor for metrics | `false` |
+| serviceMonitor.additionalLabels | Additional labels for service Montitor | `{}` |
+| serviceMonitor.annotations | Annotations for service monitor | `{}` |
+| serviceMonitor.interval | Interval for metrics scraping | `""` |
+| serviceMonitor.scrapeTimeout | Timeout for scraping metrics | `""` |
