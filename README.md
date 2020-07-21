@@ -1,6 +1,8 @@
 KEEP Network Helm Charts
 ========================
 
+![Lint and Test Charts](https://github.com/ajcrowe/keep-client-helm-chart/workflows/Lint%20and%20Test%20Charts/badge.svg)
+
 These charts provide a simple way to deploy KEEP Network clients into Kubernetes and make for easier and simplier upgrade processes
 
 ## Prerequisites
