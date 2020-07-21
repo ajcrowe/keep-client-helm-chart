@@ -1,6 +1,10 @@
-name: Lint and Test Charts
+name: linting
 
-on: pull_request
+on:
+  push:
+    branches: master
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   lint-test:
@@ -12,8 +16,8 @@ jobs:
       - name: Fetch history
         run: git fetch --prune --unshallow
 
-      - name: Run chart-testing (lint)
+      - name: Run lint
         id: lint
         uses: helm/chart-testing-action@v1.0.0-rc.2
         with:
-          command: lint
+          command: lint keep-client
