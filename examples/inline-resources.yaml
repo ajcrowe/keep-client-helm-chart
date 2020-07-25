@@ -1,6 +1,3 @@
-ecdsaNode: 
-  enabled: true
-
 nameOverride: "keep-ecdsa-client"
 fullnameOverride: "keep-ecdsa-client"
 

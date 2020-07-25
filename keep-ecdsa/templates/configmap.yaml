@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "keep-client.fullname" . }}
+  name: {{ include "keep-ecdsa.fullname" . }}
   labels:
-    {{- include "keep-client.labels" . | nindent 4 }}
+    {{- include "keep-ecdsa.labels" . | nindent 4 }}
 data:
   config.toml: |-
 {{- if .Values.configFile.enabled -}}
@@ -20,6 +20,12 @@ data:
     [ethereum.ContractAddresses]
     {{- range $key, $value := .Values.config.contractAddrs }}
       {{ $key }} = {{ $value | quote }}
+    {{- end }}
+    [SanctionedApplications]
+      Addresses = [{{ .Values.config.sanctionedApplications | join "," }}]
+    [TSS]
+    {{- if .Values.config.preParamsGenerationTimeout }}
+      PreParamsGenerationTimeout = {{ .Values.config.preParamsGenerationTimeout | quote }}
     {{- end }}
     [LibP2P]
       Peers = [{{ .Values.config.peers | join "," }}]

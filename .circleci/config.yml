@@ -29,12 +29,24 @@ workflows:
     - local/lint:
         name: lint
         lint-params: "--strict"
+        matrix:
+          parameters:
+            chart: ["keep-client", "keep-ecdsa"]
     - local/lint:
         name: lint-existing-secrets
         lint-params: "--strict -f ../examples/existing-secrets.yaml"
+        matrix:
+          parameters:
+            chart: ["keep-client", "keep-ecdsa"]
     - local/lint:
         name: lint-inline-resources
         lint-params: "--strict -f ../examples/inline-resources.yaml"
+        matrix:
+          parameters:
+            chart: ["keep-client", "keep-ecdsa"]
     - local/lint:
         name: lint-load-files
         lint-params: "--strict -f ../examples/load-files.yaml"
+        matrix:
+          parameters:
+            chart: ["keep-client", "keep-ecdsa"]

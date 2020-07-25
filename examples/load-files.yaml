@@ -1,6 +1,3 @@
-coreNode: 
-  enabled: true
-
 nameOverride: "keep-core-client"
 fullnameOverride: "keep-core-client"
 

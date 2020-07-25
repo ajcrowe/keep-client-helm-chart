@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "keep-client.fullname" . }}
+  name: {{ include "keep-ecdsa.fullname" . }}
   labels:
-    {{- include "keep-client.labels" . | nindent 4 }}
+    {{- include "keep-ecdsa.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "keep-client.selectorLabels" . | nindent 6 }}
+      {{- include "keep-ecdsa.selectorLabels" . | nindent 6 }}
   serviceName: ""
   updateStrategy:
     type: RollingUpdate
@@ -21,7 +21,7 @@ spec:
         {{ toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "keep-client.labels" . | nindent 8 }}
+        {{- include "keep-ecdsa.labels" . | nindent 8 }}
         {{- if .Values.podLabels }}
         {{ toYaml .Values.podLabels | nindent 8 }}
         {{- end }}
@@ -31,7 +31,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- if .Values.serviceAccount.create }}
-      serviceAccountName: {{ template "keep-client.serviceAccountName" . }}
+      serviceAccountName: {{ template "keep-ecdsa.serviceAccountName" . }}
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -40,7 +40,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.pullPolicy }}
           command: {{ .Values.image.command }}
           args:
             - "--config={{ .Values.config.paths.config }}/config.toml"
@@ -52,7 +52,7 @@ spec:
           {{- end }}
           envFrom:
             - secretRef:
-                name: {{ include "keep-client.fullname" . }}-keypass
+                name: {{ include "keep-ecdsa.fullname" . }}-keypass
           ports:
             - name: {{ .Values.service.name }}
               containerPort: {{ .Values.service.port }}
@@ -77,7 +77,7 @@ spec:
               timeoutSeconds: 5
             {{- end }}
           volumeMounts:
-            - name: {{ include "keep-client.fullname" . }}-data
+            - name: {{ include "keep-ecdsa.fullname" . }}-data
               mountPath: {{ .Values.config.paths.data }}
             - name: config
               mountPath: {{ .Values.config.paths.config }}
@@ -88,13 +88,13 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "keep-client.fullname" . }}
+            name: {{ include "keep-ecdsa.fullname" . }}
         - name: keyfile
           secret:
             {{- if .Values.keyFile.existingSecret }}
             secretName: {{ .Values.keyFile.existingSecret }}
             {{- else }}
-            secretName: {{ include "keep-client.fullname" . }}-keyfile
+            secretName: {{ include "keep-ecdsa.fullname" . }}-keyfile
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -110,7 +110,7 @@ spec:
     {{- end }}
   volumeClaimTemplates:
     - metadata:
-        name: {{ include "keep-client.fullname" . }}-data
+        name: {{ include "keep-ecdsa.fullname" . }}-data
       spec:
         storageClassName: {{ .Values.persistentDisk.storageClass }}
         accessModes: [ {{ .Values.persistentDisk.accessModes }} ]

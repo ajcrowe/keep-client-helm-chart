@@ -5,11 +5,11 @@ fullnameOverride: ""
 
 imagePullSecrets: []
 
+command: ["/usr/local/bin/keep-ecdsa"]
 image:
-  command: ["/usr/local/bin/keep-client"]
-  repository: keepnetwork/keep-client
+  repository: keepnetwork/keep-ecdsa-client
   pullPolicy: IfNotPresent
-  tag: "v1.2.4-rc"
+  tag: "v1.1.2"
 
 serviceAccount:
   create: true
@@ -53,14 +53,13 @@ config:
     keyFile: wallet.json
   port: 3919
   contractAddrs:
-    KeepRandomBeaconOperator: "0x9233Fd6C58e37dab223EF1dFD5e33eD69FD1f93b"
-    TokenStaking: "0x88B3D0Bfb8F207292Dc4Cee7C923d0E7C3078a18"
-    KeepRandomBeaconService: "0xa5018dbeB6920A04e0CFd3D8F0F45BC851838b0D"
+    BondedECDSAKeepFactory: "0xe7BF8421fBE80c3Bf67082370D86C8D81D1D77F4"
   sanctionedApplications:
   - '"0x14dC06F762E7f4a756825c1A1dA569b3180153cB"'
+  preParamsGenerationTimeout: ""
   peers: 
-  - '"/dns4/bootstrap-3.test.keep.network/tcp/3919/ipfs/16Uiu2HAm8KJX32kr3eYUhDuzwTucSfAfspnjnXNf9veVhB12t6Vf"'
-  - '"/dns4/bootstrap-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"'
+  - '"/dns4/ecdsa-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"'
+  - '"/dns4/ecdsa-3.test.keep.network/tcp/3919/ipfs/16Uiu2HAm8KJX32kr3eYUhDuzwTucSfAfspnjnXNf9veVhB12t6Vf"'
   announcedAddrs: 
   - '"/ip4/127.0.0.1/tcp/3919"'
   paths:
