@@ -1,5 +1,12 @@
 replicaCount: 1
 
+nameOverride: ""
+fullnameOverride: ""
+
+
+pullPolicy: IfNotPresent
+imagePullSecrets: []
+
 coreNode:
   enabled: false  
   image:
@@ -12,11 +19,6 @@ ecdsaNode:
     repository: keepnetwork/keep-ecdsa-client
     pullPolicy: IfNotPresent
     tag: "v1.1.2"
-
-pullPolicy: IfNotPresent
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
 serviceAccount:
   create: true
@@ -52,6 +54,7 @@ keyPass:
   password: "keepnetworkclient"
 
 config:
+  logLevel: ""
   ethereum:
     account: "0x0000000000000000000000000000000000000000"
     url: "wss://ropsten.infura.io/ws/v3/mykey"

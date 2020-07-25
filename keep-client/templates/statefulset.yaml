@@ -45,6 +45,11 @@ spec:
           args:
             - "--config={{ .Values.config.paths.config }}/config.toml"
             - "start"
+          {{- if .Values.config.logLevel }}
+          env:
+            - name: LOG_LEVEL
+              value: {{ .Values.config.logLevel }}
+          {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "keep-client.fullname" . }}-keypass
