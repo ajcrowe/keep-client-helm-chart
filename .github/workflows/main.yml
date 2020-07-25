@@ -16,8 +16,11 @@ jobs:
       - name: Fetch history
         run: git fetch --prune --unshallow
 
+      - name: cwd to chart
+        run: cd keep-client
+
       - name: Run lint
         id: lint
         uses: helm/chart-testing-action@v1.0.0-rc.2
         with:
-          command: lint keep-client
+          command: lint
