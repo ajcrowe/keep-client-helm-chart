@@ -66,7 +66,7 @@ Create the name of the service account to use
 Image to use based on node type
 */}}
 {{- define "keep-client.image" -}}
-{{- if .Values.ecdsaNode.enabled }}
+{{- if .Values.coreNode.enabled }}
 {{- printf "%s:%s" .Values.coreNode.image.repository .Values.coreNode.image.tag }}
 {{- else if .Values.ecdsaNode.enabled }}
 {{- printf "%s:%s" .Values.ecdsaNode.image.repository .Values.ecdsaNode.image.tag }}

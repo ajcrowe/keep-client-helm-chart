@@ -21,7 +21,7 @@ data:
     {{- range $key, $value := .Values.config.contractAddrs }}
       {{ $key }} = {{ $value | quote }}
     {{- end }}
-    {{- if .Values.ecdsaNode }}
+    {{- if .Values.ecdsaNode.enabled }}
     [SanctionedApplications]
       Addresses = [{{ .Values.config.sanctionedApplications | join "," }}]
     [TSS]
