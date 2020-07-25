@@ -1,0 +1,16 @@
+version: 2.1
+
+jobs:
+  lint:
+    docker:
+    - image: ajcrowe/docker-helm:latest
+    steps:
+    - checkout
+    - run:
+        name: Lint Chart
+        command: helm lint .
+
+workflows:
+  lint:
+    jobs:
+      - lint
