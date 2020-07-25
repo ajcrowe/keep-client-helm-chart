@@ -2,13 +2,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "keep-client.fullname" . }}
+  labels:
+    {{- include "keep-client.labels" . | nindent 4 }}
 data:
   config.toml: |-
-  {{- if .Values.configFile.enabled -}}
+{{- if .Values.configFile.enabled -}}
     {{ .Files.Get .Values.configFile.localFile | nindent 4 }}
-  {{- else if .Values.configYaml }}
+{{- else if .Values.configYaml }}
     {{ .Values.configYaml | nindent 4 }}
-  {{- else }}
+{{- else }}
     [ethereum]
       URL = "{{ .Values.config.ethereum.url }}"
       URLRPC = "{{ .Values.config.ethereum.urlRpc }}"
@@ -19,9 +21,13 @@ data:
     {{- range $key, $value := .Values.config.contractAddrs }}
       {{ $key }} = {{ $value | quote }}
     {{- end }}
-    {{- if .Values.ecdsaNode -}}
+    {{- if .Values.ecdsaNode }}
     [SanctionedApplications]
       Addresses = [{{ .Values.config.sanctionedApplications | join "," }}]
+    [TSS]
+    {{- if .Values.config.preParamsGenerationTimeout }}
+      PreParamsGenerationTimeout = {{ .Values.config.preParamsGenerationTimeout | quote }}
+    {{- end }}
     {{- end }}
     [LibP2P]
       Peers = [{{ .Values.config.peers | join "," }}]
@@ -34,5 +40,5 @@ data:
       Port = {{ .Values.metrics.port }}
       NetworkMetricsTick = {{ .Values.metrics.networkMetricsTick }}
       EthereumMetricsTick = {{ .Values.metrics.ethereumMetricsTick }}
-    {{- end }}
-  {{- end }}
+    {{ end }}
+{{- end }}

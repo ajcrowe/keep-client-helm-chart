@@ -4,22 +4,18 @@ kind: ServiceMonitor
 metadata:
   name: {{ template "keep-client.fullname" . }}
   labels:
-    app: {{ template "keep-client.name" . }}
-    chart: {{ template "keep-client.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "keep-client.labels" . | nindent 4 }}
     {{- if .Values.serviceMonitor.additionalLabels }}
-{{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
+    {{ toYaml .Values.serviceMonitor.additionalLabels | nindent 4 }}
     {{- end }}
   {{- if .Values.serviceMonitor.annotations }}
   annotations:
-{{ toYaml .Values.serviceMonitor.annotations | indent 4 }}
+    {{ toYaml .Values.serviceMonitor.annotations | nindent 4 }}
   {{- end }}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "keep-client.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "keep-client.selectorLabels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace | quote }}

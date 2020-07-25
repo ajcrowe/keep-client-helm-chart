@@ -67,9 +67,9 @@ Image to use based on node type
 */}}
 {{- define "keep-client.image" -}}
 {{- if .Values.ecdsaNode.enabled }}
-{{ printf "%s:%s" .Values.coreNode.image.repository .Values.coreNode.image.tag }}
+{{- printf "%s:%s" .Values.coreNode.image.repository .Values.coreNode.image.tag }}
 {{- else if .Values.ecdsaNode.enabled }}
-{{ printf "%s:%s" .Values.ecdsaNode.image.repository .Values.ecdsaNode.image.tag }}
+{{- printf "%s:%s" .Values.ecdsaNode.image.repository .Values.ecdsaNode.image.tag }}
 {{- else }}
 {{ fail "No node type enabled please enabled core or ecdsa" }}
 {{- end }}
