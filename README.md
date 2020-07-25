@@ -1,7 +1,7 @@
 KEEP Network Helm Charts
 ========================
 
-![linting](https://github.com/ajcrowe/keep-client-helm-chart/workflows/linting/badge.svg)
+[![CircleCI](https://circleci.com/gh/ajcrowe/keep-client-helm-chart/tree/master.svg?style=svg)](https://circleci.com/gh/ajcrowe/keep-client-helm-chart/tree/master)
 
 These charts provide a simple way to deploy KEEP Network clients into Kubernetes and make for easier and simplier upgrade processes
 
