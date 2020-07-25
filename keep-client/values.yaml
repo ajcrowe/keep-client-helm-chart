@@ -40,17 +40,17 @@ service:
 
 probesEnabled: false
 
-configYaml: {}
+configYaml: ""
 configFile:
   enabled: false
   localFile: config.toml
 
-keyFileJson: {}
+keyFileJson: ""
 keyFile:
-  existingSecret: {}
+  existingSecret: ""
   localFile: wallet.json
 keyPass:
-  existingSecret: 
+  existingSecret: ""
   password: "keepnetworkclient"
 
 config:

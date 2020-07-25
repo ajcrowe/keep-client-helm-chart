@@ -1,16 +1,40 @@
 version: 2.1
 
-jobs:
-  lint:
-    docker:
-    - image: ajcrowe/docker-helm:latest
-    steps:
-    - checkout
-    - run:
-        name: Lint Chart
-        command: helm lint .
+orbs:
+  local:
+    jobs:
+      lint:
+        parameters:
+          chart:
+            description: Chart path
+            type: string
+            default: keep-client
+          lint-params:
+            description: Params to lint with
+            type: string
+            default: ""
+        docker:
+        - image: ajcrowe/docker-helm:latest
+        steps:
+        - checkout
+        - run:
+            name: Lint Chart
+            command: |
+              cd << parameters.chart >>
+              helm lint << parameters.lint-params >> .
 
 workflows:
   lint:
     jobs:
-      - lint
+    - local/lint:
+        name: lint
+        lint-params: "--strict"
+    - local/lint:
+        name: lint-existing-secrets
+        lint-params: "--strict -f ../examples/existing-secrets.yaml"
+    - local/lint:
+        name: lint-inline-resources
+        lint-params: "--strict -f ../examples/inline-resources.yaml"
+    - local/lint:
+        name: lint-load-files
+        lint-params: "--strict -f ../examples/load-files.yaml"
