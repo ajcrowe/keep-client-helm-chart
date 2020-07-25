@@ -5,8 +5,8 @@ fullnameOverride: ""
 
 imagePullSecrets: []
 
-command: ["/usr/local/bin/keep-ecdsa"]
 image:
+  command: ["/usr/local/bin/keep-ecdsa"]
   repository: keepnetwork/keep-ecdsa-client
   pullPolicy: IfNotPresent
   tag: "v1.1.2"

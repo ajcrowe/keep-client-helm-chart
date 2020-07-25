@@ -40,7 +40,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.pullPolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: {{ .Values.image.command }}
           args:
             - "--config={{ .Values.config.paths.config }}/config.toml"
