@@ -53,9 +53,9 @@ config:
     keyFile: wallet.json
   port: 3919
   contractAddrs:
-    BondedECDSAKeepFactory: "0xe7BF8421fBE80c3Bf67082370D86C8D81D1D77F4"
+    BondedECDSAKeepFactory: "0xb37c8696cD023c11357B37b5b12A9884c9C83784"
   sanctionedApplications:
-  - '"0x14dC06F762E7f4a756825c1A1dA569b3180153cB"'
+  - '"0x9F3B3bCED0AFfe862D436CB8FF462a454040Af80"'
   preParamsGenerationTimeout: ""
   peers: 
   - '"/dns4/ecdsa-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"'

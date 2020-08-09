@@ -62,20 +62,20 @@ spec:
               containerPort: {{ .Values.metrics.port }}
               protocol: TCP
             {{- end }}
-            {{- if .Values.probesEnabled }}
-            livenessProbe:
-              tcpSocket:
-                port: {{ .Values.service.name }}
-              initialDelaySeconds: 60
-              periodSeconds: 30
-              timeoutSeconds: 5
-            readinessProbe:
-              tcpSocket:
-                port: {{ .Values.service.name }}
-              initialDelaySeconds: 45
-              periodSeconds: 30
-              timeoutSeconds: 5
-            {{- end }}
+          {{- if .Values.probesEnabled }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.service.name }}
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.service.name }}
+            initialDelaySeconds: 45
+            periodSeconds: 30
+            timeoutSeconds: 5
+          {{- end }}
           volumeMounts:
             - name: {{ include "keep-client.fullname" . }}-data
               mountPath: {{ .Values.config.paths.data }}
