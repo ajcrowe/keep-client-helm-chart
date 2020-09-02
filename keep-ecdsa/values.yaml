@@ -9,7 +9,7 @@ image:
   command: ["/usr/local/bin/keep-ecdsa"]
   repository: keepnetwork/keep-ecdsa-client
   pullPolicy: IfNotPresent
-  tag: "v1.1.2"
+  tag: "v1.2.0-rc.4"
 
 serviceAccount:
   create: true

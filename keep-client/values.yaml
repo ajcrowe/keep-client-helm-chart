@@ -9,7 +9,7 @@ image:
   command: ["/usr/local/bin/keep-client"]
   repository: keepnetwork/keep-client
   pullPolicy: IfNotPresent
-  tag: "v1.2.4-rc"
+  tag: "v1.3.0-rc.3"
 
 serviceAccount:
   create: true
