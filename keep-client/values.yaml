@@ -53,10 +53,12 @@ config:
     keyFile: wallet.json
   port: 3919
   contractAddrs:
-    KeepRandomBeaconOperator: "0xf417b31104631280adF9F6828ee19985BC299fdC"
-    TokenStaking: "0x8117632eC1D514550b3880Bc68F9AC1A76c9C67B"
-    KeepRandomBeaconService: "0xd83248e311DC2Ba0d2A051e86f0678d8857f6ADD"
+    KeepRandomBeaconOperator: "0x70F2202D85a4F0Cad36e978976f84E982920A624"
+    TokenStaking: "0x6D1140a8c8e6Fac242652F0a5A8171b898c67600"
+    KeepRandomBeaconService: "0x17056632d8db5a5c42fdE25132C59DD975a6da7F"
   peers: 
+  - '"/dns4/bootstrap-1.core.keep.test.boar.network/tcp/3001/ipfs/16Uiu2HAkuTUKNh6HkfvWBEkftZbqZHPHi3Kak5ZUygAxvsdQ2UgG"'
+  - '"/dns4/bootstrap-2.core.keep.test.boar.network/tcp/3001/ipfs/16Uiu2HAmQirGruZBvtbLHr5SDebsYGcq6Djw7ijF3gnkqsdQs3wK"'
   - '"/dns4/bootstrap-3.test.keep.network/tcp/3919/ipfs/16Uiu2HAm8KJX32kr3eYUhDuzwTucSfAfspnjnXNf9veVhB12t6Vf"'
   - '"/dns4/bootstrap-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"'
   announcedAddrs: 
