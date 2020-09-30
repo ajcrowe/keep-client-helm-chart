@@ -9,7 +9,7 @@ image:
   command: ["/usr/local/bin/keep-client"]
   repository: keepnetwork/keep-client
   pullPolicy: IfNotPresent
-  tag: "v1.3.0-rc.3"
+  tag: "v1.3.0"
 
 serviceAccount:
   create: true
@@ -53,14 +53,12 @@ config:
     keyFile: wallet.json
   port: 3919
   contractAddrs:
-    KeepRandomBeaconOperator: "0x70F2202D85a4F0Cad36e978976f84E982920A624"
-    TokenStaking: "0x6D1140a8c8e6Fac242652F0a5A8171b898c67600"
-    KeepRandomBeaconService: "0x17056632d8db5a5c42fdE25132C59DD975a6da7F"
-  peers: 
-  - '"/dns4/bootstrap-1.core.keep.test.boar.network/tcp/3001/ipfs/16Uiu2HAkuTUKNh6HkfvWBEkftZbqZHPHi3Kak5ZUygAxvsdQ2UgG"'
-  - '"/dns4/bootstrap-2.core.keep.test.boar.network/tcp/3001/ipfs/16Uiu2HAmQirGruZBvtbLHr5SDebsYGcq6Djw7ijF3gnkqsdQs3wK"'
-  - '"/dns4/bootstrap-3.test.keep.network/tcp/3919/ipfs/16Uiu2HAm8KJX32kr3eYUhDuzwTucSfAfspnjnXNf9veVhB12t6Vf"'
-  - '"/dns4/bootstrap-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"'
+    KeepRandomBeaconOperator: "0xdf708431162ba247ddae362d2c919e0fbafcf9de"
+    TokenStaking: "0x1293a54e160d1cd7075487898d65266081a15458"
+    KeepRandomBeaconService: "0x50510e691c90ea098e3fdd23c311731bf394aafd"
+  peers:
+  - '"/dns4/bst-a01.core.keep.boar.network/tcp/3001/ipfs/16Uiu2HAkzYFHsqbwt64ZztWWK1hyeLntRNqWMYFiZjaKu1PZgikN"'
+  - '"/dns4/bst-b01.core.keep.boar.network/tcp/3001/ipfs/16Uiu2HAkxLttmh3G8LYzAy1V1g1b3kdukzYskjpvv5DihY4wvx7D"'
   announcedAddrs: 
   - '"/ip4/127.0.0.1/tcp/3919"'
   paths:

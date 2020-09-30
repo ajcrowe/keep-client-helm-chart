@@ -9,7 +9,7 @@ image:
   command: ["/usr/local/bin/keep-ecdsa"]
   repository: keepnetwork/keep-ecdsa-client
   pullPolicy: IfNotPresent
-  tag: "v1.2.0-rc.4"
+  tag: "v1.2.1"
 
 serviceAccount:
   create: true
@@ -52,15 +52,14 @@ config:
     urlRpc: "https://ropsten.infura.io/v3/mykey"
     keyFile: wallet.json
   port: 3919
-  contractAddrs:
-    BondedECDSAKeepFactory: "0x9EcCf03dFBDa6A5E50d7aBA14e0c60c2F6c575E6"
-  sanctionedApplications:
-  - '"0xc3f96306eDabACEa249D2D22Ec65697f38c6Da69"'
   preParamsGenerationTimeout: ""
-  peers: 
-  - '"/dns4/bootstrap-1.ecdsa.keep.test.boar.network/tcp/4001/ipfs/16Uiu2HAmPFXDaeGWtnzd8s39NsaQguoWtKi77834A6xwYqeicq6N"'
-  - '"/dns4/ecdsa-2.test.keep.network/tcp/3919/ipfs/16Uiu2HAmNNuCp45z5bgB8KiTHv1vHTNAVbBgxxtTFGAndageo9Dp"'
-  - '"/dns4/ecdsa-3.test.keep.network/tcp/3919/ipfs/16Uiu2HAm8KJX32kr3eYUhDuzwTucSfAfspnjnXNf9veVhB12t6Vf"'
+  contractAddrs:
+    BondedECDSAKeepFactory: "0xA7d9E842EFB252389d613dA88EDa3731512e40bD"
+  sanctionedApplications:
+  - '"0xe20A5C79b39bC8C363f0f49ADcFa82C2a01ab64a"'
+  peers:
+  - '"/dns4/bst-a01.ecdsa.keep.boar.network/tcp/4001/ipfs/16Uiu2HAkzYFHsqbwt64ZztWWK1hyeLntRNqWMYFiZjaKu1PZgikN"'
+  - '"/dns4/bst-b01.ecdsa.keep.boar.network/tcp/4001/ipfs/16Uiu2HAkxLttmh3G8LYzAy1V1g1b3kdukzYskjpvv5DihY4wvx7D"'
   announcedAddrs: 
   - '"/ip4/127.0.0.1/tcp/3919"'
   paths:
